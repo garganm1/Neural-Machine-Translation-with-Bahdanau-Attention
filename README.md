@@ -202,21 +202,24 @@ Some outputs from Beam Search -
 
 - evaluate('it is very cold here') :- 
 
-  - Translated Sentence 1 : c vraiment froid 
+  - Translated Sentence 1 : "c vraiment froid"   Associated Neg Log Probability: [1.4590162] 
   - Associated Neg Log Probability: [1.4590162] 
 
-  - Translated Sentence 2 : il tres froid ici 
+  - Translated Sentence 2 : "il tres froid ici"   Associated Neg Log Probability: [1.2284557] 
   - Associated Neg Log Probability: [1.2284557] 
 
-  - Translated Sentence 3 : on beaucoup beaucoup ici 
+  - Translated Sentence 3 : "on beaucoup beaucoup ici"  Associated Neg Log Probability: [2.4623508]
   - Associated Neg Log Probability: [2.4623508] 
 
-  - Translated Sentence 4 : elle fort froid la bas 
+  - Translated Sentence 4 : "elle fort froid la bas"   Associated Neg Log Probability: [3.4176364] 
   - Associated Neg Log Probability: [3.4176364] 
-
-  - Translated Sentence 5 : son a tres la bas 
+ 
+  - Translated Sentence 5 : "son a tres la bas"   Associated Neg Log Probability: [3.54257]
   - Associated Neg Log Probability: [3.54257] 
 
 - evaluate('You may speak') :- **vous pouvez discuter**
 
 ## Section 6: Evaluation of the Model
+
+
+
