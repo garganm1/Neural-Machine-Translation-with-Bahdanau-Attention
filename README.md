@@ -212,7 +212,7 @@ Some outputs from Beam Search -
  
   - Translated Sentence 5 : "son a tres la bas"  ; Associated Neg Log Probability: [3.54257]
 
-- evaluate_with_beam('You may speak', 5) :- **vous pouvez discuter**
+- evaluate_with_beam('You may speak', 5) :-
 
   - Translated Sentence 1 : "vous discuter" ; Associated Neg Log Probability: [0.7923796] 
 
