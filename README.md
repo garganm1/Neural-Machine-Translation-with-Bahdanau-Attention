@@ -18,7 +18,7 @@ The notebook is segmented into following sections:
 
 Section 1: Data Processing <br>
 Section 2: Data Tokenization <br>
-Section 3: Defining the Model <br>
+Section 3: Building the Model <br>
 Section 4: Training the Model <br>
 Section 5: Inference from the Model (Greedy & Beam Search) <br>
 Section 6: Data Processing
@@ -76,6 +76,71 @@ For Target Language (French)
 The tokenized text will be pickle stored finally to train the model with
 
 ## Section 3: Building the Model
+
+**Let us build up the concept slowly. Starting discussion with an Encoder-Decoder translation model** **(without any attention mechanism)**
+
+![fig1](https://user-images.githubusercontent.com/55252306/109705236-8a788680-7b65-11eb-9d8a-025a6946c9fc.PNG)
+
+The blue cells denote the encoder and the red cells denote the decoder layers.
+
+After the embedding layers embed each word of the source and target text, the encoder (blue hidden) layer learns the sequences in the source text as well as the final states of encoder from this layer are fed to the decoder (red hidden) layer that learns the sequences of translation along with the source states from the encoder.
+
+The decoder layer then makes a projection layer which spits out a prediction vector of size V (vocabulary size of target language). The maximum probability value of this vector denotes the word that the model is predicting which is judged against what should be produced as a loss function.
+
+Notice the \<s\> at the start of target input words which is the first word fed to the decoder model (representing the start of decoding) and the prediction at this point is the first word of translation. The last word of target input spits out \</s\> that would denote the end of translation.
+
+Note that we have employed only one hidden layer in this notebook per encoder and decoder.
+
+### Teacher Forcing:
+
+We will implement teacher forcing during training. This means that the model is fed with the translated word as an input to the decoder and that too in a sequential manner. In summary, it is the technique where the target word is passed as the next input to the decoder. Note that this won't and can not be implemented during inference.
+
+![fig2](https://user-images.githubusercontent.com/55252306/109706464-f9a2aa80-7b66-11eb-9a7c-ac6eed86ba41.PNG)
+
+The inference, i.e. translating once the model has been trained, would be a little different. Let's see how below-
+
+Everything is the same except we don't know the target input to be fed to the model when you would be inferring (teacher forcing explained above).
+
+In this case, the first prediction of <s> (moi) is fed as an input of next target word to the model the produce the next translated word. The sequence continues until we hit </s> where the translation stops.
+
+Above figure is a type of greedy decoding since we are only looking at the word with the highest probability in the prediction vector. This is very basic seq2seq model. Adding the attention mechanism to it greatly enhances its performance. If you have understood the above architecture, move below to understand Attention Mechanism
+
+**Let's now start with an Encoder-Decoder translation model with Bahdanau attention mechanism**
+
+![fig3](https://user-images.githubusercontent.com/55252306/109706668-39699200-7b67-11eb-8e51-61a24eb67a5b.PNG)
+
+You will notice the addition of 'attention weights', 'context vector' and finally the attention vector to the above discussed model.
+
+The calculation of the above hinges on the below formulae :-
+
+![fig4](https://user-images.githubusercontent.com/55252306/109706790-6158f580-7b67-11eb-9411-dc887045895f.PNG)
+
+The attention computation happens at every decoder time step. It consists of the following stages:
+
+1. The current target hidden state is compared with all of the source states to derive attention weights
+2. Based on the attention weights, we compute a context vector as the weighted average of the source states
+3. Then we combine the context vector with the current target hidden state to yield the final attention vector
+4. The attention vector is fed as an input to the next time step (input feeding)
+
+The way of comparing the source states with the current target hidden state has been researched and Bahdanau' additive style has been employed in this notebook (**Formula 4** in above figure). There are other comparative measures such as Luong's multiplicative style as well as their variations and combinations.
+
+The comparison gives out a score when each source hidden state is compared with the current target hidden state. This score is fed to a softmax layer (**Formula 1**) that measures the score of the current hidden state against each source hidden state (which are the attention weights).
+
+The weights are then assessed with the source states so that the model focuses on source input words where it should focus in translating the current target input (**Formula 2**). This produces a context vector that contains information where the context lies in the input sequence to translate the current word
+
+The context vector is concatenated with the current target hidden state and then activated to get an attention vector (**Formula 3**) that encompasses all information of source input and for target input - everything upto the current target input state.
+
+Also, the hidden state obtained during computation of attention vector is added as an input to the next word in target input so that the prior information is passed on in a sequential manner to its embedding and subsequent learning.
+
+Notice the teacher forcing here during training when the target word is passed as the next input to the decoder. Again, as told earlier, it is an aspect only built-in during the training and the inference will act without it.
+
+As before, during the inference, everything is same except that teacher-forcing isn't implemented and the translated 'prediction' word from the model itself is fed as the next input to the decoder
+
+I believe that was a lot to take in. Here are some articles I referred when I tried to understand it all and I hope that these will be able to get you some more in-depth knowledge and insights -
+
+Base Article - https://www.tensorflow.org/tutorials/text/nmt_with_attention
+Understanding Attention - https://github.com/tensorflow/nmt#intermediate
+Understanding Types of Attention - https://towardsdatascience.com/attn-illustrated-attention-5ec4ad276ee3
 
 
 ## Section 4: Training the Model
