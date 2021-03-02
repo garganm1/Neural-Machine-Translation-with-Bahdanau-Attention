@@ -1,4 +1,4 @@
-# Neural-Machine-Translation-with-Bahdanau-Attention
+# Neural Machine Translation with Bahdanau Attention
 
 In this repo, we will deal with Translation of languages, specifically English to French. An Encoder-Decoder model using LSTM layers combined with Bahdanau Attention Mechanism will be implemented for training (along with Teacher Forcing - feeding the translation in a sequential manner to the decoder). Teacher Forcing can be compared to spoon-feeding wherein we ask the decoder model to spit out the next word when fed with the previously translated word(s) as well as the complete sequence of input language words (weighted with attention)
 
@@ -14,7 +14,7 @@ Target Language:- French
 The dataset is provided by an organization through the below link:
 Link for getting data - http://www.manythings.org/bilingual/
 
-The notebook is segmented into sections:
+The notebook is segmented into following sections:
 
 Section 1: Data Processing <br>
 Section 2: Data Tokenization <br>
@@ -26,10 +26,26 @@ Section 6: Data Processing
 
 ## Section 1: Data Processing
 
+The data consists of english phrases/sentences and their french translations.
 
+1. All special characters are removed
+2. Sentence-ending symbols (. , ? !) are given spaces
+3. Add 'start' at the start of the sentence and 'end' at the end of the sentence (to signal the model the start and end of any phrase/sentence)
 
+As this notebook is for presentation purpose, we limit the data to the first 50,000 english-french data points. This number can be manipulated as per the user's needs
+
+We end up with data that contains information like this-
+
+| ENG_processed | FRA_processed |
+| ------------- | ------------- |
+| <start> tom lied to all of us . <end> | <start> tom nous a a tous menti . <end> |
+| <start> tom lied to everybody . <end> | <start> tom a menti a tout le monde . <end> |
+| <start> tom liked what he saw . <end> | <start> tom a aime ce qu il a vu . <end> |
+
+and so on...
 
 ## Section 2: Data Tokenization
+
 
 
 ## Section 3: Defining the Model
