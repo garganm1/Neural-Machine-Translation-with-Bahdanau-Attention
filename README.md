@@ -16,11 +16,11 @@ Link for getting data - http://www.manythings.org/bilingual/
 
 The notebook is segmented into sections:
 
-Section 1: Data Processing
-Section 2: Data Tokenization
-Section 3: Defining the Model
-Section 4: Training the Model
-Section 5: Inference from the Model (Greedy & Beam Search)
+Section 1: Data Processing <br>
+Section 2: Data Tokenization <br>
+Section 3: Defining the Model <br>
+Section 4: Training the Model <br>
+Section 5: Inference from the Model (Greedy & Beam Search) <br>
 Section 6: Data Processing
 
 
