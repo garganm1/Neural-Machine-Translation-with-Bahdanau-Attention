@@ -200,24 +200,29 @@ source:- https://medium.com/the-artificial-impostor/implementing-beam-search-par
 
 Some outputs from Beam Search -
 
-- evaluate('it is very cold here') :- 
+- evaluate_with_beam('it is very cold here', 5) :- 
 
-  - Translated Sentence 1 : "c vraiment froid"   Associated Neg Log Probability: [1.4590162] 
-  - Associated Neg Log Probability: [1.4590162] 
+  - Translated Sentence 1 : "c vraiment froid"  ; Associated Neg Log Probability: [1.4590162] 
 
-  - Translated Sentence 2 : "il tres froid ici"   Associated Neg Log Probability: [1.2284557] 
-  - Associated Neg Log Probability: [1.2284557] 
+  - Translated Sentence 2 : "il tres froid ici"  ; Associated Neg Log Probability: [1.2284557] 
 
-  - Translated Sentence 3 : "on beaucoup beaucoup ici"  Associated Neg Log Probability: [2.4623508]
-  - Associated Neg Log Probability: [2.4623508] 
+  - Translated Sentence 3 : "on beaucoup beaucoup ici" ; Associated Neg Log Probability: [2.4623508] 
 
-  - Translated Sentence 4 : "elle fort froid la bas"   Associated Neg Log Probability: [3.4176364] 
-  - Associated Neg Log Probability: [3.4176364] 
+  - Translated Sentence 4 : "elle fort froid la bas"  ; Associated Neg Log Probability: [3.4176364] 
  
-  - Translated Sentence 5 : "son a tres la bas"   Associated Neg Log Probability: [3.54257]
-  - Associated Neg Log Probability: [3.54257] 
+  - Translated Sentence 5 : "son a tres la bas"  ; Associated Neg Log Probability: [3.54257]
 
-- evaluate('You may speak') :- **vous pouvez discuter**
+- evaluate_with_beam('You may speak', 5) :- **vous pouvez discuter**
+
+  - Translated Sentence 1 : "vous discuter" ; Associated Neg Log Probability: [0.7923796] 
+
+  - Translated Sentence 2 : "tu parler" ; Associated Neg Log Probability: [2.2389612] 
+
+  - Translated Sentence 3 : "peut arreter" ; Associated Neg Log Probability: [4.0256424] 
+
+  - Translated Sentence 4 : "il parler" ; Associated Neg Log Probability: [1.5031487] 
+
+  - Translated Sentence 5 : "on courir" ; Associated Neg Log Probability: [3.999619] 
 
 ## Section 6: Evaluation of the Model
 
