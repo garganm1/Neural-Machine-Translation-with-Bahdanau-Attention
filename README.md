@@ -145,9 +145,59 @@ I believe that was a lot to take in. Here are some articles I referred when I tr
 
 ## Section 4: Training the Model
 
+An Object-oriented approach is applied as the Tensorflow-Keras libaries don't have predefined layers that can incorporate this architecture. There could be a way using backend Keras but I believe it would also require some modifications that can be done using a Class inheriting the backend classes.
+
+Once the classes are formulated and model has been built (along with loss calculation and optimizer defined), the tf.GradientTape() function will be implemented to train the model on each batch and update the gradients of the trainable parameters. The model is trained for 20 epochs (with 0 patience), with shuffling of data in each epoch. For more information on this, please refer the notebook on how everything is defined and formulated.
+
 
 ## Section 5: Inference from the Model (Greedy & Beam Search)
 
+**1. Greedy Search**
+
+Greedy Search is the most basic inference algorithm. It takes the word with the highest probability at each output from the decoder input. This word is then fed to the next time step of the decoder to predict the next word until we hit the 'end' signal
+
+Some outputs from this - 
+
+- evaluate('it is very cold here') :- **il fait tres froid ici**
+- evaluate('You may speak') :- **vous pouvez discuter**
+
+
+**2. Beam Search**
+
+Beam Search is slightly complicated. It produces K (which is user-defined) number of translations based on highest conditional probabilities of the words.
+
+Let us understand this by taking an example - <br>
+Suppose we take k=3 (see below pic; reference:- https://www.youtube.com/watch?v=RLWuzLLSIgw&t=360s&ab_channel=DeepLearningAI)
+
+![fig5](https://user-images.githubusercontent.com/55252306/109709075-23a99c00-7b6a-11eb-88e9-5ce269b6181a.PNG)
+
+In beam search, we take the top k words as a possibility instead of the word with highest probability. In above pic, in step 1 - we see three words - (in, jane, september) as three possible translated words that have the highest probability out of the 10,000 vocabulary of words.
+
+In step 2, for each of the previous word, we pick another top 3 words with highest probability. But this probability calculation is now conditional to the previous word and is calculated based on the probability formula given in the picture.
+
+But, we slightly modify the probability calculation by taking its negative log (log being monotonous will not impact the values; this trick makes the formula to add the probabilities instead of multiplying them to avoid underflow). See modified formula below -
+
+![fig6](https://user-images.githubusercontent.com/55252306/109709318-581d5800-7b6a-11eb-8b05-d5c20c60c07a.PNG)
+
+Once we have the 9 probabilities (k x k), we filter for the top 3 highest and then carry them forward to step 3 and so on.
+
+One thing to note here is that there are k decoder models running here for reference for each word found in step 1. Let's discuss more about it with the pic below
+
+![image](https://user-images.githubusercontent.com/55252306/109709422-74b99000-7b6a-11eb-946a-341bb3a4fe79.png)
+
+We see three decoder models that take the previous word as an input and then predicts the next word. Now some cases might arise here-
+
+- The top three probabilities might come out of one or two previous words and so the decoder model(s) that don't have the highest probability get cut off. This is advantageous as we are concerned with the highest conditional probability of the entire sentence.
+- A sentence progression can hit the 'end' signal before others and thus we get one possible translation of the sentence. The decoder model at this point might get cut off depending if it has more sequence progressions arising out of it.
+
+Both cases above are considered in the algorithm formulation. The above points also helps to understand the working behind Beam Search
+
+
+Below is an illustration of beam search with k=5 in translation to German. Notice 5 nodes at each vertical segment.
+
+source:- https://medium.com/the-artificial-impostor/implementing-beam-search-part-1-4f53482daabe
+
+![image](https://user-images.githubusercontent.com/55252306/109709535-a29ed480-7b6a-11eb-8cc6-68504d263370.png)
 
 
 ## Section 6: Data Processing
