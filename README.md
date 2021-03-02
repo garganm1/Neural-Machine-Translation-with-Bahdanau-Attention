@@ -226,5 +226,10 @@ Some outputs from Beam Search -
 
 ## Section 6: Evaluation of the Model
 
+Any model has to be evaluated to know how good it is or to compare it with other models.
 
+Machine translations are textual data and BLEU is a metric that can help to evaluate the translations with the correct translations that should be given. It is based on an n-gram model where it looks at the words appearing in the candidate translation with the reference translation (with combinations). There are obvious limitations to this evaluation such as it will look at the word's and nearby words' positions only.
 
+NLTK's bleu_score library gives this functionality. It looks at 1-gram to 4-gram and gives an average value (not exactly average) for how good the translations match with each other. You can evaluate the model on a test set using corplus_bleu. For more information, do refer nltk library and this article - https://machinelearningmastery.com/calculate-bleu-score-for-text-python/
+
+On testing the model with BLEU, we find that even though the french translations are quite near to each other (when translated back to english) but the BLEU score is quite low. BLEU ranges from 0(denoting no match) to 1(denoting perfect match). As stated earlier, this is a limitation of BLEU but it is still widely practiced as a metric to measure textual models' performances.
