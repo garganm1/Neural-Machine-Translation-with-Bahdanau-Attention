@@ -138,9 +138,9 @@ As before, during the inference, everything is same except that teacher-forcing 
 
 I believe that was a lot to take in. Here are some articles I referred when I tried to understand it all and I hope that these will be able to get you some more in-depth knowledge and insights -
 
-Base Article - https://www.tensorflow.org/tutorials/text/nmt_with_attention
-Understanding Attention - https://github.com/tensorflow/nmt#intermediate
-Understanding Types of Attention - https://towardsdatascience.com/attn-illustrated-attention-5ec4ad276ee3
+- Base Article - https://www.tensorflow.org/tutorials/text/nmt_with_attention
+- Understanding Attention - https://github.com/tensorflow/nmt#intermediate
+- Understanding Types of Attention - https://towardsdatascience.com/attn-illustrated-attention-5ec4ad276ee3
 
 
 ## Section 4: Training the Model
