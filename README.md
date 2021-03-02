@@ -21,7 +21,7 @@ Section 2: Data Tokenization <br>
 Section 3: Building the Model <br>
 Section 4: Training the Model <br>
 Section 5: Inference from the Model (Greedy & Beam Search) <br>
-Section 6: Data Processing
+Section 6: Evaluation of the Model
 
 
 ## Section 1: Data Processing
@@ -156,7 +156,7 @@ Once the classes are formulated and model has been built (along with loss calcul
 
 Greedy Search is the most basic inference algorithm. It takes the word with the highest probability at each output from the decoder input. This word is then fed to the next time step of the decoder to predict the next word until we hit the 'end' signal
 
-Some outputs from this - 
+Some outputs from Greedy Search - 
 
 - evaluate('it is very cold here') :- **il fait tres froid ici**
 - evaluate('You may speak') :- **vous pouvez discuter**
@@ -193,11 +193,30 @@ We see three decoder models that take the previous word as an input and then pre
 Both cases above are considered in the algorithm formulation. The above points also helps to understand the working behind Beam Search
 
 
-Below is an illustration of beam search with k=5 in translation to German. Notice 5 nodes at each vertical segment.
-
+Below is an illustration of beam search with k=5 in translation to German. Notice 5 nodes at each vertical segment.<br>
 source:- https://medium.com/the-artificial-impostor/implementing-beam-search-part-1-4f53482daabe
 
 ![image](https://user-images.githubusercontent.com/55252306/109709535-a29ed480-7b6a-11eb-8cc6-68504d263370.png)
 
+Some outputs from Beam Search -
 
-## Section 6: Data Processing
+- evaluate('it is very cold here') :- 
+
+  - Translated Sentence 1 : c vraiment froid 
+  - Associated Neg Log Probability: [1.4590162] 
+
+  - Translated Sentence 2 : il tres froid ici 
+  - Associated Neg Log Probability: [1.2284557] 
+
+  - Translated Sentence 3 : on beaucoup beaucoup ici 
+  - Associated Neg Log Probability: [2.4623508] 
+
+  - Translated Sentence 4 : elle fort froid la bas 
+  - Associated Neg Log Probability: [3.4176364] 
+
+  - Translated Sentence 5 : son a tres la bas 
+  - Associated Neg Log Probability: [3.54257] 
+
+- evaluate('You may speak') :- **vous pouvez discuter**
+
+## Section 6: Evaluation of the Model
