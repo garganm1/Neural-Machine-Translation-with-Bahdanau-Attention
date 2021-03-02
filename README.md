@@ -101,7 +101,7 @@ The inference, i.e. translating once the model has been trained, would be a litt
 
 Everything is the same except we don't know the target input to be fed to the model when you would be inferring (teacher forcing explained above).
 
-In this case, the first prediction of <s> (moi) is fed as an input of next target word to the model the produce the next translated word. The sequence continues until we hit </s> where the translation stops.
+In this case, the first prediction of \<s\> (moi) is fed as an input of next target word to the model the produce the next translated word. The sequence continues until we hit \</s\> where the translation stops.
 
 Above figure is a type of greedy decoding since we are only looking at the word with the highest probability in the prediction vector. This is very basic seq2seq model. Adding the attention mechanism to it greatly enhances its performance. If you have understood the above architecture, move below to understand Attention Mechanism
 
