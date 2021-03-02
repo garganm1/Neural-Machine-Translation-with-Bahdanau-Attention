@@ -46,9 +46,36 @@ and so on...
 
 ## Section 2: Data Tokenization
 
+The tensorflow's tokenizer and padding functionalities will tokenize the processed text.
 
+This means that for two texts in the corpus -
 
-## Section 3: Defining the Model
+S1:- I am here <br>
+S2:- He is here right now
+
+The tokenized form would be -
+
+S1:- [1, 2, 3, 0, 0]
+S2:- [4, 5, 3, 6, 7]
+
+Basically, the tokenized form would replace the word with a unique number that would represent that word.
+
+- Notice the padding done at the end of sentence 1 (two 0's added). This will be done based on the maximum length of a sentence in a particular language
+- Notice the repetiton of 3 in both tokenized forms which represent the word 'here' being repeated
+
+Two separate tokenizers for each language will fit onto the each language's corpus to be tokenized. Besides this, we need two other values for each language for building the model architecture viz. maximum length of all sentences and vocabulary (count of unique words)
+
+For Source Language (English)
+ - Max Length = 11
+ - Vocab Size = 5886
+
+For Target Language (French)
+  - Max Length = 19
+  - Vocab Size = 10214
+
+The tokenized text will be pickle stored finally to train the model with
+
+## Section 3: Building the Model
 
 
 ## Section 4: Training the Model
